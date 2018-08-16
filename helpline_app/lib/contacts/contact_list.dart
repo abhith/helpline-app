@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactList extends StatelessWidget {
   final String eventId;
@@ -25,6 +26,7 @@ class ContactList extends StatelessWidget {
               .collection('events')
               .document(eventId)
               .collection('contacts')
+              .orderBy('name')
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const CircularProgressIndicator();
@@ -41,10 +43,31 @@ class ContactList extends StatelessWidget {
     return ListTile(
       title: Text(document['name']),
       subtitle: Text(document['phone']),
-      trailing: Icon(Icons.call),
-      // leading: CircleAvatar(
-      //   backgroundColor: Colors.red,
-      // ),
+      trailing: _itemAction(context, document),
+      leading: CircleAvatar(
+        child: Icon(Icons.person),
+      ),
     );
+  }
+
+  Widget _itemAction(BuildContext context, DocumentSnapshot document) {
+    switch (document['type']) {
+      case 'mobile':
+        return IconButton(
+          icon: Icon(Icons.phone_android),
+          onPressed: () => launch("tel:${document['phone']}"),
+        );
+
+      case 'landline':
+        return IconButton(
+          icon: Icon(Icons.call),
+          onPressed: () => launch("tel:${document['phone']}"),
+        );
+      default:
+        return IconButton(
+          icon: Icon(Icons.call),
+          onPressed: () => launch("tel:${document['phone']}"),
+        );
+    }
   }
 }
