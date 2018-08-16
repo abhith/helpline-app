@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:helpline_app/contacts/contact_list.dart';
 
 class EventsList extends StatelessWidget {
   @override
@@ -11,12 +12,13 @@ class EventsList extends StatelessWidget {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return new Scaffold(
-        appBar: new AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: new Text('Events'),
-        ),
-        body: StreamBuilder(
+      appBar: new AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: new Text('Events'),
+      ),
+      body: SafeArea(
+        child: StreamBuilder(
           stream: Firestore.instance.collection('events').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const CircularProgressIndicator();
@@ -26,10 +28,32 @@ class EventsList extends StatelessWidget {
                   _buildListItem(context, snapshot.data.documents[index]),
             );
           },
-        ));
+        ),
+      ),
+    );
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
-    return ListTile(title: Text(document['name']));
+    return ListTile(
+        title: Row(
+          children: <Widget>[
+            Expanded(
+                child: Text(
+              document['name'],
+              style: Theme.of(context).textTheme.headline,
+            ))
+          ],
+        ),
+        leading: CircleAvatar(
+          backgroundColor: Colors.red,
+        ),
+        trailing: Icon(Icons.arrow_right),
+        onTap: (() => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ContactList(
+                        eventId: document.documentID,
+                      )),
+            )));
   }
 }
