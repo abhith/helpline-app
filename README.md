@@ -1,5 +1,5 @@
 # helpline-app
-Simple (Boring) app which basically lists helpline numbers of events. Now only event added is "Kerala Floods".
+Simple (Boring) app which basically lists helpline numbers of events. Now only event added is "Kerala Rain Disaster".
 
 ## Download
 [http://bit.ly/helpline-app](http://bit.ly/helpline-app)
