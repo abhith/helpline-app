@@ -60,7 +60,7 @@ class EventsList extends StatelessWidget {
         Icons.warning,
         color: Colors.redAccent,
       ),
-      trailing: Icon(Icons.arrow_right),
+      trailing: Icon(Icons.arrow_forward),
       onTap: (() => Navigator.push(
             context,
             MaterialPageRoute(
