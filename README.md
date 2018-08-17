@@ -14,7 +14,7 @@ And the data can still accessible if user is offline.
 |-events  
 |--|-name (string)  
 |--|-contacts  
-|--|--|--name (string)  
-|--|--|--phone (string)  
-|--|--|--type (string) (landline/ mobile)  
+|--|--|-name (string)  
+|--|--|-phone (string)  
+|--|--|-type (string) (landline/ mobile)  
 
