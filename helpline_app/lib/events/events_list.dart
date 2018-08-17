@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:helpline_app/common/loading_widget.dart';
 import 'package:helpline_app/contacts/contact_list.dart';
 
 class EventsList extends StatelessWidget {
@@ -21,7 +22,11 @@ class EventsList extends StatelessWidget {
         child: StreamBuilder(
           stream: Firestore.instance.collection('events').snapshots(),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return const CircularProgressIndicator();
+            if (!snapshot.hasData) {
+              return LoadingWidget(
+                visible: true,
+              );
+            }
             return ListView.builder(
               itemCount: snapshot.data.documents.length,
               itemBuilder: (context, index) =>
@@ -35,25 +40,27 @@ class EventsList extends StatelessWidget {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     return ListTile(
-        title: Row(
-          children: <Widget>[
-            Expanded(
-                child: Text(
-              document['name'],
-              style: Theme.of(context).textTheme.headline,
-            ))
-          ],
-        ),
-        leading: CircleAvatar(
-          backgroundColor: Colors.red,
-        ),
-        trailing: Icon(Icons.arrow_right),
-        onTap: (() => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ContactList(
-                        eventId: document.documentID,
-                      )),
-            )));
+      title: Row(
+        children: <Widget>[
+          Expanded(
+              child: Text(
+            document['name'],
+            style: Theme.of(context).textTheme.headline,
+          ))
+        ],
+      ),
+      leading: CircleAvatar(
+        backgroundColor: Colors.red,
+      ),
+      trailing: Icon(Icons.arrow_right),
+      onTap: (() => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ContactList(
+                    eventId: document.documentID,
+                  ),
+            ),
+          )),
+    );
   }
 }
