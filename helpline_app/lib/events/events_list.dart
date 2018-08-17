@@ -1,9 +1,16 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:helpline_app/common/loading_widget.dart';
 import 'package:helpline_app/contacts/contact_list.dart';
 
 class EventsList extends StatelessWidget {
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
+
+  const EventsList({Key key, this.observer, this.analytics}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -49,8 +56,9 @@ class EventsList extends StatelessWidget {
           ))
         ],
       ),
-      leading: CircleAvatar(
-        backgroundColor: Colors.red,
+      leading: Icon(
+        Icons.warning,
+        color: Colors.redAccent,
       ),
       trailing: Icon(Icons.arrow_right),
       onTap: (() => Navigator.push(
@@ -58,6 +66,8 @@ class EventsList extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => ContactList(
                     eventId: document.documentID,
+                    observer: observer,
+                    analytics: analytics,
                   ),
             ),
           )),
