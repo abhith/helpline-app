@@ -1,6 +1,6 @@
 # helpline-app
 Simple (Boring) app which basically lists helpline numbers of events. Now only event added is "Kerala Rain Disaster".
-<a href="https://play.google.com/store/apps/details?id=https://play.google.com/store/apps/details?id=net.abhith.helplineapp&rdid=net.abhith.helplineapp">
+<a href="https://play.google.com/store/apps/details?id=net.abhith.helplineapp">
   <img alt="Android app on Google Play"
        src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
 </a>
