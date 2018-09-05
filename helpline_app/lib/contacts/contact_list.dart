@@ -20,12 +20,12 @@ class ContactList extends StatefulWidget {
       : super(key: key);
 
   @override
-  _ContactListState createState() => new _ContactListState();
+  _ContactListState createState() => _ContactListState();
 }
 
 class _ContactListState extends State<ContactList> {
-  final _ContactListSearchDelegate _delegate = new _ContactListSearchDelegate();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final _ContactListSearchDelegate _delegate = _ContactListSearchDelegate();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String _lastSelected;
   ContactListBloc bloc;
@@ -47,14 +47,14 @@ class _ContactListState extends State<ContactList> {
   @override
   Widget build(BuildContext context) {
     bloc = ContactListProvider.of(context);
-    return new Scaffold(
+    return Scaffold(
       key: _scaffoldKey,
-      appBar: new AppBar(
+      appBar: AppBar(
         title: Text(bloc.contacts.length > 0
             ? 'Helplines (${bloc.contacts.length.toString()})'
             : 'Helplines'),
         actions: <Widget>[
-          new IconButton(
+          IconButton(
             tooltip: 'Search',
             icon: const Icon(Icons.search),
             onPressed: () async {
@@ -113,9 +113,9 @@ class _ContactListSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildLeading(BuildContext context) {
-    return new IconButton(
+    return IconButton(
       tooltip: 'Back',
-      icon: new AnimatedIcon(
+      icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
       ),
@@ -138,7 +138,7 @@ class _ContactListSearchDelegate extends SearchDelegate<String> {
                 .startsWith(query.toLowerCase()))
             .map((contact) => contact['name'].toString());
 
-    return new _SuggestionList(
+    return _SuggestionList(
       query: query,
       suggestions: suggestions.map((String i) => '$i').toList(),
       onSelected: (String suggestion) {
@@ -169,7 +169,7 @@ class _ContactListSearchDelegate extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
-      new IconButton(
+      IconButton(
         tooltip: 'Clear',
         icon: const Icon(Icons.clear),
         onPressed: () {
@@ -255,19 +255,19 @@ class _SuggestionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return new ListView.builder(
+    return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int i) {
         final String suggestion = suggestions[i];
-        return new ListTile(
+        return ListTile(
           leading: query.isEmpty ? const Icon(Icons.history) : const Icon(null),
-          title: new RichText(
-            text: new TextSpan(
+          title: RichText(
+            text: TextSpan(
               text: suggestion.substring(0, query.length),
               style:
                   theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
               children: <TextSpan>[
-                new TextSpan(
+                TextSpan(
                   text: suggestion.substring(query.length),
                   style: theme.textTheme.subhead,
                 ),
