@@ -1,4 +1,6 @@
 # helpline-app
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FAbhith%2Fhelpline-app.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FAbhith%2Fhelpline-app?ref=badge_shield)
+
 Simple (Boring) app which basically lists helpline numbers of events. Now only event added is "Kerala Rain Disaster".
 <a href="https://play.google.com/store/apps/details?id=net.abhith.helplineapp">
   <img alt="Android app on Google Play"
@@ -19,3 +21,7 @@ And the data can still accessible if user is offline.
 |--|--|-phone (string)  
 |--|--|-type (string) (landline/ mobile)  
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FAbhith%2Fhelpline-app.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FAbhith%2Fhelpline-app?ref=badge_large)
